@@ -17,6 +17,7 @@ import { AvatarModule } from 'primeng/avatar';
 import { TagModule } from 'primeng/tag';
 import { DividerModule } from 'primeng/divider';
 import { PanelModule } from 'primeng/panel';
+import { ContainerComponent } from './components/container/container.component';
 
 export const SharedImports = [
   InputTextModule,
@@ -38,4 +39,5 @@ export const SharedImports = [
   TagModule,
   DividerModule,
   PanelModule,
+  ContainerComponent,
 ];

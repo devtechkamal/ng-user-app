@@ -29,13 +29,9 @@ export class ShellLayout {
   sidebar: SidebarSection[] = [
     {
       title: 'Main Navigation',
-      items: [{ label: 'Dashboard', icon: 'home', route: AppUrl.Dashboard }],
-    },
-    {
-      title: 'Management',
       items: [
+        { label: 'Dashboard', icon: 'home', route: AppUrl.Dashboard },
         { label: 'Users', icon: 'groups', route: AppUrl.Users.main, roles: ['admin'] },
-        { label: 'Settings', icon: 'settings', route: '/settings' },
       ],
     },
     // {
