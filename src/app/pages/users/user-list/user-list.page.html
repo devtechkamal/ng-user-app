@@ -1,0 +1,67 @@
+<app-container>
+  <div class="flex items-center justify-between">
+    <h3 class="font-bold text-2xl">Manage User</h3>
+    <app-user-form></app-user-form>
+  </div>
+
+  <p-card class="mt-4">
+    <p-table
+      #ut
+      [value]="users"
+      [paginator]="true"
+      [rows]="5"
+      [showCurrentPageReport]="true"
+      currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+      [globalFilterFields]="['name', 'email', 'role']"
+      [rowsPerPageOptions]="[5, 10, 20]"
+    >
+      <ng-template #caption>
+        <div class="flex">
+          <p-iconfield iconPosition="left">
+            <p-inputicon>
+              <i class="pi pi-search"></i>
+            </p-inputicon>
+            <input
+              pInputText
+              type="text"
+              (input)="ut.filterGlobal($event.target.value, 'contains')"
+              placeholder="Search"
+            />
+          </p-iconfield>
+        </div>
+      </ng-template>
+      <ng-template #header>
+        <tr>
+          <th>#</th>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Role</th>
+          <th>Created At</th>
+          <th>Action</th>
+        </tr>
+      </ng-template>
+      <ng-template #body let-user>
+        <tr>
+          <td>{{ user.id }}</td>
+          <td>{{ user.name }}</td>
+          <td>{{ user.email }}</td>
+          <td>{{ user.role }}</td>
+          <td>{{ user.createdAt | date: 'mediumDate' }}</td>
+          <td>
+            <p-button icon="pi pi-pencil" severity="success" size="small" />
+            <p-button
+              icon="pi pi-trash"
+              severity="danger"
+              class="ml-2"
+              size="small"
+              (click)="deleteUser($event)"
+            />
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </p-card>
+
+  <p-toast />
+  <p-confirmdialog closable="false" />
+</app-container>
