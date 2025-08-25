@@ -1,1 +1,67 @@
-<p>profile works!</p>
+<app-container>
+  <h2 class="text-2xl font-semibold">My Profile</h2>
+  <div class="p-6 max-w-2xl mx-auto">
+    <!-- Profile Picture -->
+    <div class="flex flex-col items-center mb-6 relative">
+      <!-- Avatar -->
+      <img
+        *ngIf="profileImage; else placeholder"
+        [src]="profileImage"
+        class="w-32 h-32 rounded-lg border shadow mb-3 object-cover"
+      />
+      <ng-template #placeholder>
+        <div
+          class="w-32 h-32 flex items-center justify-center rounded-lg bg-gray-300 text-gray-600"
+        >
+          <i class="pi pi-user text-4xl"></i>
+        </div>
+      </ng-template>
+
+      <!-- Edit Icon Overlay -->
+      <div
+        class="absolute bottom-0 right-[calc(50%-4rem)] bg-white p-2 rounded-lg shadow cursor-pointer hover:bg-gray-100"
+        (click)="fileInput.click()"
+      >
+        <i class="pi pi-pencil text-gray-700 text-xs"></i>
+      </div>
+
+      <!-- Hidden File Input -->
+      <input
+        type="file"
+        #fileInput
+        (change)="onFileSelected($event)"
+        accept="image/*"
+        class="hidden"
+      />
+    </div>
+
+    <!-- Profile Info -->
+    <div class="card p-6 shadow rounded-lg mb-6 bg-white">
+      <h3 class="text-lg font-semibold mb-4">Profile Information</h3>
+      <form [formGroup]="profileForm" class="flex flex-col gap-4">
+        <input type="text" pInputText placeholder="Full Name" formControlName="name" />
+        <input type="email" pInputText placeholder="Email" formControlName="email" />
+        <button
+          pButton
+          label="Save Changes"
+          class="p-button-success mt-2"
+          (click)="saveProfile()"
+        ></button>
+      </form>
+    </div>
+
+    <!-- Password Change -->
+    <div class="card p-6 shadow rounded-lg bg-white">
+      <h3 class="text-lg font-semibold mb-4">Change Password</h3>
+      <form [formGroup]="passwordForm" class="flex flex-col gap-4">
+        <input type="password" pPassword placeholder="New Password" formControlName="password" />
+        <button
+          pButton
+          label="Update Password"
+          class="p-button-warning mt-2"
+          (click)="changePassword()"
+        ></button>
+      </form>
+    </div>
+  </div>
+</app-container>
