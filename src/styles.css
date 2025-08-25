@@ -8,3 +8,11 @@ html,
 body {
   font-family: 'Roboto', sans-serif;
 }
+
+.active-link {
+  @apply bg-primary-500 text-white font-semibold;
+}
+
+.active-child-link {
+  @apply text-primary-600 font-medium;
+}

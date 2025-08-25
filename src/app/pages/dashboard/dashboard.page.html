@@ -1,7 +1,7 @@
 <app-container>
   <div class="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
     <div>
-      <h1 class="text-2xl md:text-3xl font-semibold">Welcome back, {{ auth.fullName() }}</h1>
+      <h1 class="text-2xl font-semibold">Welcome back, {{ auth.fullName() }}</h1>
       <p class="text-sm text-muted-color">
         Role: {{ auth.role() }} · Last login: {{ auth.lastLoginAt() | date: 'medium' }}
       </p>
@@ -57,52 +57,7 @@
   </div>
 
   <!-- Activity + Login Attempts -->
-  <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
-    <p-panel header="Recent Users" class="rounded-2xl shadow-sm">
-      <ng-template #icons>
-        <a routerLink="/users" class="text-sm text-primary hover:underline">View all</a>
-      </ng-template>
-      <ng-template #content>
-        <p-table
-          [value]="recentUsers"
-          [tableStyle]="{ 'min-width': '100%' }"
-          [rows]="5"
-          [paginator]="false"
-        >
-          <ng-template pTemplate="header">
-            <tr>
-              <th>User</th>
-              <th>Email</th>
-              <th>Role</th>
-              <th>Status</th>
-              <th>Joined</th>
-            </tr>
-          </ng-template>
-          <ng-template pTemplate="body" let-u>
-            <tr>
-              <td>
-                <div class="flex items-center gap-2">
-                  <p-avatar [label]="u.name[0]" shape="circle"></p-avatar>
-                  <span class="font-medium">{{ u.name }}</span>
-                </div>
-              </td>
-              <td class="text-sm text-muted-color">{{ u.email }}</td>
-              <td>
-                <p-tag [value]="u.role"></p-tag>
-              </td>
-              <td>
-                <p-tag
-                  [value]="u.active ? 'Active' : 'Inactive'"
-                  [severity]="u.active ? 'success' : 'danger'"
-                ></p-tag>
-              </td>
-              <td class="text-sm">{{ u.createdAt | date: 'mediumDate' }}</td>
-            </tr>
-          </ng-template>
-        </p-table>
-      </ng-template>
-    </p-panel>
-
+  <div class="grid">
     <p-panel header="Login Activity (7 days)" class="rounded-2xl shadow-sm">
       <ng-template #content>
         <p-chart
