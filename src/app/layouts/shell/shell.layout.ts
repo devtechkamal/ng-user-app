@@ -2,6 +2,8 @@ import { Component, computed, inject, signal } from '@angular/core';
 import { RouterLink, RouterOutlet } from '@angular/router';
 import { SharedImports } from '../../shared/shared.config';
 import { trigger, transition, style, animate } from '@angular/animations';
+import { SidebarSection } from '../../core/interfaces/sidebar.interface';
+import { AppUrl } from '../../core/constants/url.constants';
 
 @Component({
   selector: 'app-shell',
@@ -23,33 +25,33 @@ export class ShellLayout {
   openSection = signal<string | null>(null);
   showMobileSidebar = signal(false);
   animateSidebar = signal(false);
-
-  readonly sidebarSections = computed(() => {
-    return [
-      {
-        section: 'Main Navigation',
-        items: [
-          { label: 'Dashboard', icon: 'home', route: '/dashboard' },
-          {
-            label: 'Products',
-            icon: 'box',
-            children: [
-              { label: 'Product List', icon: 'list', route: '/products' },
-              { label: 'Add Product', icon: 'plus', route: '/products/create' },
-            ],
-          },
-          { label: 'Suppliers', icon: 'truck', route: '/suppliers' },
-        ],
-      },
-      {
-        section: 'Settings',
-        items: [
-          { label: 'Users', icon: 'users', route: '/users' },
-          { label: 'Roles', icon: 'shield', route: '/roles' },
-        ],
-      },
-    ];
-  });
+  appUrl = AppUrl;
+  sidebar: SidebarSection[] = [
+    {
+      title: 'Main Navigation',
+      items: [{ label: 'Dashboard', icon: 'home', route: AppUrl.Dashboard }],
+    },
+    {
+      title: 'Management',
+      items: [
+        { label: 'Users', icon: 'groups', route: AppUrl.Users.main, roles: ['admin'] },
+        { label: 'Settings', icon: 'settings', route: '/settings' },
+      ],
+    },
+    // {
+    //   title: 'Reports',
+    //   items: [
+    //     {
+    //       label: 'Reports',
+    //       icon: 'bar_chart',
+    //       children: [
+    //         { label: 'Sales', route: '/reports/sales' },
+    //         { label: 'Finance', route: '/reports/finance' },
+    //       ],
+    //     },
+    //   ],
+    // },
+  ];
 
   toggleSection(sectionLabel: string) {
     this.openSection.update((current) => (current === sectionLabel ? null : sectionLabel));

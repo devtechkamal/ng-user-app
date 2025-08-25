@@ -1,0 +1,51 @@
+<form [formGroup]="userForm" (submit)="saveUser()">
+  <p-drawer [(visible)]="visible" header="User Details" position="right">
+    <div class="mb-4">
+      <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
+        >Your Name</label
+      >
+      <input pInputText name="name" placeholder="Name" class="w-full" formControlName="name" />
+    </div>
+    <div class="mb-4">
+      <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
+        >Email Address</label
+      >
+      <input
+        pInputText
+        name="email"
+        placeholder="Email Address"
+        class="w-full"
+        formControlName="email"
+      />
+      @if (userForm.get('email')?.hasError('required') && userForm.get('email')?.touched) {
+        <span class="form-error">Email is required.</span>
+      }
+    </div>
+    <div class="mb-4">
+      <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
+        >Password</label
+      >
+      <p-password
+        type="text"
+        placeholder="Password"
+        [toggleMask]="true"
+        [feedback]="false"
+        [fluid]="true"
+        formControlName="password"
+      />
+    </div>
+
+    <div class="mb-4">
+      <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Role</label>
+      <p-select [options]="roles" optionLabel="name" placeholder="Select" class="w-full" />
+    </div>
+
+    <ng-template #footer>
+      <div class="flex gap-2">
+        <p-button label="Cancel" severity="secondary" (click)="visible = false" />
+        <button pButton label="Save" type="submit"></button>
+      </div>
+    </ng-template>
+  </p-drawer>
+</form>
+<p-button (click)="visible = true" label="Add User" icon="pi pi-plus" />
